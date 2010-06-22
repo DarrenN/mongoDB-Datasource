@@ -501,8 +501,8 @@ class MongodbSource extends DboSource {
  */
 	protected function _execute($query) {
 		if (Configure::read()) {
-			debug(Debugger::trace());
-			debug ($query); die;
+			debug(Debugger::trace()); //@ignore
+			debug ($query); die; //@ignore
 		}
 	}
 
@@ -555,7 +555,7 @@ class MongodbSource extends DboSource {
 	public function logQuery($query) {
 		$this->took = round((getMicrotime() - $this->_startTime) * 1000, 0);
 		$this->affected = null;
-		$this->error = $this->connection->lastError();
+		$this->error = $this->_db->lastError();
 		$this->numRows = null;
 		return parent::logQuery($query);
 	}
